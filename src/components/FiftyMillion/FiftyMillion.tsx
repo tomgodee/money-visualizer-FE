@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
 
-interface FiftyMillionProps extends GroupProps {
+interface FiftyMillionProps {
   scale: number;
   position: number[];
   setTarget: Dispatch<SetStateAction<number[]>>;
