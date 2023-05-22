@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-}
+  transpilePackages: ["@react-three/fiber"],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
