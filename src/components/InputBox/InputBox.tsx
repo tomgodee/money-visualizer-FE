@@ -7,6 +7,8 @@ import {
   RepeatIcon,
   Spinner,
   Text,
+  Tooltip,
+  QuestionOutlineIcon,
 } from "@/components/chakra";
 import { useEntries, useEntryById, useEntryCount } from "@/services/entries";
 
@@ -126,7 +128,12 @@ export const InputBox = (props: InputBoxProps) => {
       )}
 
       {money === null && (
-        <Text mt={6}>Can&lsquo;t find value for this input.</Text>
+        <Flex mt={6} alignItems="center">
+          <Text mr={2}>Can&lsquo;t find value for this input.</Text>
+          <Tooltip label={entry.original_answer} fontSize="md">
+            <QuestionOutlineIcon />
+          </Tooltip>
+        </Flex>
       )}
 
       <Button mt={6} onClick={handleVisualize}>

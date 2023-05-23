@@ -15,8 +15,9 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
+  Tooltip,
 } from "@chakra-ui/react";
-import { RepeatIcon } from "@chakra-ui/icons";
+import { RepeatIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 
 export {
   Box,
@@ -34,5 +35,7 @@ export {
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
+  Tooltip,
   RepeatIcon,
+  QuestionOutlineIcon,
 };
