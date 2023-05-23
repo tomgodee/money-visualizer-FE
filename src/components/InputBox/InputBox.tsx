@@ -1,14 +1,15 @@
+import throttle from "lodash-es/throttle";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 
 import {
   Button,
   Flex,
   Input,
+  QuestionOutlineIcon,
   RepeatIcon,
   Spinner,
   Text,
   Tooltip,
-  QuestionOutlineIcon,
 } from "@/components/chakra";
 import { useEntries, useEntryById, useEntryCount } from "@/services/entries";
 
@@ -121,7 +122,7 @@ export const InputBox = (props: InputBoxProps) => {
           sx={{
             cursor: "pointer",
           }}
-          onClick={handleClickIcon}
+          onClick={throttle(handleClickIcon, 1000)}
         />
       </Flex>
 
@@ -134,13 +135,19 @@ export const InputBox = (props: InputBoxProps) => {
       {money === null && (
         <Flex mt={6} alignItems="center">
           <Text mr={2}>Can&lsquo;t find value for this input.</Text>
-          <Tooltip label={entry.original_answer} fontSize="md">
+          <Tooltip
+            label={
+              entry?.original_answer ||
+              (entries?.length && entries[0].original_answer)
+            }
+            fontSize="md"
+          >
             <QuestionOutlineIcon />
           </Tooltip>
         </Flex>
       )}
 
-      <Button mt={6} onClick={handleVisualize}>
+      <Button mt={6} isDisabled={searchInput === ""} onClick={handleVisualize}>
         Visualize
       </Button>
 
