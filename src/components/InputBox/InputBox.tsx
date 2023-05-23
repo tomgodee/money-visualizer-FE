@@ -56,7 +56,11 @@ export const InputBox = (props: InputBoxProps) => {
 
   const handleClickIcon = () => {
     const randomEntryId = Math.floor(Math.random() * entryCount + 1);
-    setEntryId(randomEntryId);
+    if (entryId !== randomEntryId) {
+      setEntryId(randomEntryId);
+    } else {
+      handleClickIcon();
+    }
   };
 
   const time = useMemo(() => {
