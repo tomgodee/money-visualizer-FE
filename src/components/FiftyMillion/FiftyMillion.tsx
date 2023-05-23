@@ -1,16 +1,18 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { useGLTF } from "@react-three/drei";
-import { GroupProps } from "@react-three/fiber";
+import { Vector3 } from "three";
 
 interface FiftyMillionProps {
   scale: number;
-  position: number[];
-  setTarget: Dispatch<SetStateAction<number[]>>;
+  position: Vector3;
+  setTarget: Dispatch<SetStateAction<Vector3>>;
 }
 
 export function FiftyMillion(props: FiftyMillionProps) {
-  const { nodes, materials } = useGLTF("/fifty_million/50m_model_neat.glb");
+  const model: any = useGLTF("/fifty_million/50m_model_neat.glb");
+  const nodes = model.nodes;
+  const materials = model.materials;
   const { setTarget } = props;
   const [hovered, setHovered] = useState(false);
 
@@ -24,7 +26,8 @@ export function FiftyMillion(props: FiftyMillionProps) {
 
   return (
     <group
-      {...props}
+      scale={props.scale}
+      position={props.position}
       dispose={null}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}

@@ -2,16 +2,23 @@ import React from "react";
 import { FontLoader, TextGeometry } from "three-stdlib";
 import helvetiker from "three/examples/fonts/helvetiker_regular.typeface.json";
 
-import { extend } from "@react-three/fiber";
+import { extend, Object3DNode } from "@react-three/fiber";
+import { Vector3 } from "three";
+extend({ TextGeometry });
+
+declare module "@react-three/fiber" {
+  interface ThreeElements {
+    textGeometry: Object3DNode<TextGeometry, typeof TextGeometry>;
+  }
+}
 
 interface ValueTextProps {
-  position: number[];
+  position: Vector3;
   text: string;
   textSize: number;
 }
 
 export function ValueText(props: ValueTextProps) {
-  extend({ TextGeometry });
   const helvetikerRegular = new FontLoader().parse(helvetiker as any);
   const { position, text, textSize } = props;
 

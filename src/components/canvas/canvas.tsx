@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Box3 } from "three/src/math/Box3";
-import { Vector3 } from "three/src/math/Vector3";
+import { Vector3 } from "three";
 import { Group } from "three/src/Three";
 
 import Man from "@/components/Man";
@@ -51,10 +51,9 @@ export default function MainCanvas(props: MainCanvasProps) {
   const [secondGroupX, setSecondGroupX] = useState(0);
   const [planeWidth, setPlaneWidth] = useState(200);
   const [planeHeight, setPlaneHeight] = useState(200);
-  const [target, setTarget] = useState([0, 1, 0]);
+  const [target, setTarget] = useState(new Vector3(0, 1, 0));
 
-  const [firstGroupRef, setFirstGroupRef] =
-    useState<React.MutableRefObject<Group | null>>(null);
+  const [firstGroupRef, setFirstGroupRef] = useState<Group>(new Group());
 
   const firstGroupRefCallBack = useCallback((node: any) => {
     if (node !== null) {
@@ -149,11 +148,13 @@ export default function MainCanvas(props: MainCanvasProps) {
             <group ref={firstGroupRefCallBack}>
               {shouldShowText && (
                 <ValueText
-                  position={[
-                    -30,
-                    (Math.floor(stacks[0].length / 6) + 1) * 11.2,
-                    stacks[0].length < 5 ? stacks[0].length * 7 - 4 : 35,
-                  ]}
+                  position={
+                    new Vector3(
+                      -30,
+                      (Math.floor(stacks[0].length / 6) + 1) * 11.2,
+                      stacks[0].length < 5 ? stacks[0].length * 7 - 4 : 35
+                    )
+                  }
                   text={
                     stacks[0].length
                       ? `${(stacks[0].length * ONE_BILLION).toLocaleString()}`
@@ -173,11 +174,13 @@ export default function MainCanvas(props: MainCanvasProps) {
             <group position={[secondGroupX, 0, 0]}>
               {shouldShowText && (
                 <ValueText
-                  position={[
-                    -5.5,
-                    Math.floor(stacks[1].length / 20) * 0.65 + 3,
-                    stacks[1].length < 21 ? stacks[1].length - 11 : 9,
-                  ]}
+                  position={
+                    new Vector3(
+                      -5.5,
+                      Math.floor(stacks[1].length / 20) * 0.65 + 3,
+                      stacks[1].length < 21 ? stacks[1].length - 11 : 9
+                    )
+                  }
                   text={
                     stacks[1].length
                       ? `${(stacks[1].length * ONE_MILLION).toLocaleString()}`
@@ -200,7 +203,7 @@ export default function MainCanvas(props: MainCanvasProps) {
             <group>
               {shouldShowText && (
                 <ValueText
-                  position={[-6, (stacks[2].length + 2) * 0.165, 0]}
+                  position={new Vector3(-6, (stacks[2].length + 2) * 0.165, 0)}
                   text={
                     stacks[2].length ? `${stacks[2].length * TEN_THOUSAND}` : ""
                   }
@@ -211,7 +214,7 @@ export default function MainCanvas(props: MainCanvasProps) {
                 return (
                   <TenGrand
                     key={stack}
-                    position={[-5, (stack + 0.1) * 0.165, 0]}
+                    position={new Vector3(-5, (stack + 0.1) * 0.165, 0)}
                     scale={0.15}
                     setTarget={setTarget}
                   />
@@ -222,7 +225,9 @@ export default function MainCanvas(props: MainCanvasProps) {
             <group>
               {shouldShowText && (
                 <ValueText
-                  position={[-3.1, (stacks[3].length + 60) * 0.005, 0]}
+                  position={
+                    new Vector3(-3.1, (stacks[3].length + 60) * 0.005, 0)
+                  }
                   text={
                     stacks[3].length ? `${stacks[3].length * ONE_HUNDRED}` : ""
                   }
@@ -233,7 +238,7 @@ export default function MainCanvas(props: MainCanvasProps) {
                 return (
                   <OneHundred
                     key={stack}
-                    position={[-2.5, (stack + 1) * 0.005, 0]}
+                    position={new Vector3(-2.5, (stack + 1) * 0.005, 0)}
                     scale={0.15}
                     setTarget={setTarget}
                   />
@@ -244,7 +249,9 @@ export default function MainCanvas(props: MainCanvasProps) {
             <group>
               {shouldShowText && (
                 <ValueText
-                  position={[-0.35, (stacks[4].length + 60) * 0.005, 0]}
+                  position={
+                    new Vector3(-0.35, (stacks[4].length + 60) * 0.005, 0)
+                  }
                   text={stacks[4].length ? `${stacks[4].length}` : ""}
                   textSize={0.5}
                 />
@@ -253,7 +260,7 @@ export default function MainCanvas(props: MainCanvasProps) {
                 return (
                   <One
                     key={stack}
-                    position={[0, (stack + 1) * 0.005, 0]}
+                    position={new Vector3(0, (stack + 1) * 0.005, 0)}
                     scale={0.15}
                     setTarget={setTarget}
                   />
@@ -263,10 +270,12 @@ export default function MainCanvas(props: MainCanvasProps) {
           </>
         )}
 
-        {shouldShowMan && <Man scale={manScale} position={[manX, 0, 0]} />}
+        {shouldShowMan && (
+          <Man scale={manScale} position={new Vector3(manX, 0, 0)} />
+        )}
       </Physics>
 
-      <OrbitControls target={target} minDistance={2} enableDamping />
+      <OrbitControls target={target as any} minDistance={2} enableDamping />
       <PerspectiveCamera makeDefault position={[0, 20, 40]} />
     </Canvas>
   );

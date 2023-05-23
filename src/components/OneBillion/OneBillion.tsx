@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { Vector3 } from "three";
 
 import FiftyMillion from "@/components/FiftyMillion";
-import { Vector3 } from "@react-three/fiber";
 
 interface OneBillionProps {
   stack: number;
-  setTarget: Dispatch<SetStateAction<number[]>>;
+  setTarget: Dispatch<SetStateAction<Vector3>>;
 }
 
 export function OneBillion(props: OneBillionProps) {
@@ -33,11 +33,13 @@ export function OneBillion(props: OneBillionProps) {
       <FiftyMillion
         key={i}
         scale={10}
-        position={[
-          getFiftyMillionPositionX(x),
-          getFiftyMillionPositionY(y),
-          getFiftyMillionPositionZ(z),
-        ]}
+        position={
+          new Vector3(
+            getFiftyMillionPositionX(x),
+            getFiftyMillionPositionY(y),
+            getFiftyMillionPositionZ(z)
+          )
+        }
         setTarget={setTarget}
       />
     );

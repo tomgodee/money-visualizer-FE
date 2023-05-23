@@ -1,11 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { Vector3, Euler } from "three";
 
 import OneHundredThousand from "../OneHundredThousand";
 
 interface OneMillionProps {
   stack: number;
-  setTarget: Dispatch<SetStateAction<number[]>>;
+  setTarget: Dispatch<SetStateAction<Vector3>>;
 }
+
 export function OneMillion(props: OneMillionProps) {
   const { stack, setTarget } = props;
 
@@ -30,12 +32,13 @@ export function OneMillion(props: OneMillionProps) {
       <OneHundredThousand
         key={i}
         scale={10}
-        position={[
-          getOneMillionPositionX(x),
-          getOneMillionPositionY(y),
-          getOneMillionPositionZ(z),
-        ]}
-        rotation={[0, -((14 * Math.PI) / 180), 0]}
+        position={
+          new Vector3(
+            getOneMillionPositionX(x),
+            getOneMillionPositionY(y),
+            getOneMillionPositionZ(z)
+          )
+        }
         setTarget={setTarget}
       />
     );
