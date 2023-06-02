@@ -23,14 +23,21 @@ export default function Home() {
 
   return (
     <main>
-      <Flex position="relative">
+      <Flex
+        position="relative"
+        flexDirection={{ base: "column-reverse", md: "row" }}
+      >
         {isLoading && (
           <Box position="absolute" height="100vh" width="100vw">
             <LoadingOverlay active spinner text="Waking up server." />
           </Box>
         )}
 
-        <Box id="canvas-container" height="100vh" width="75%">
+        <Box
+          id="canvas-container"
+          height="100vh"
+          width={{ base: "100%", md: "75%" }}
+        >
           <Canvas
             money={money}
             shouldShowMan={shouldShowMan}
@@ -39,7 +46,7 @@ export default function Home() {
           />
         </Box>
 
-        <Box width="25%" p={4}>
+        <Box width={{ base: "100%", md: "25%" }} p={4}>
           <InputBox
             setMoney={setMoney}
             money={money}

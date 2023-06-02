@@ -107,7 +107,7 @@ export default function MainCanvas(props: MainCanvasProps) {
   const resetPosition = () => {
     setPlaneWidth(200);
     setPlaneHeight(200);
-    setManX(10);
+    setManX(15);
   };
 
   useEffect(() => {
