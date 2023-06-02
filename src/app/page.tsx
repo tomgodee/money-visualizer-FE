@@ -10,6 +10,7 @@ import { DEFAULT_MAN_SCALE, SCALE_ADJUSTER } from "@/constants";
 import { useEntryCount } from "@/services/entries";
 
 // Fix warning on console for this lib
+// @ts-ignore
 LoadingOverlay.propTypes = undefined;
 
 export default function Home() {
