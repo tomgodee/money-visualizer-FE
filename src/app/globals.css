@@ -92,7 +92,7 @@ a {
 
 ._loading_overlay_wrapper {
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 

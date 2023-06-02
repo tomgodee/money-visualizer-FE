@@ -29,7 +29,7 @@ export default function Home() {
         flexDirection={{ base: "column-reverse", md: "row" }}
       >
         {isLoading && (
-          <Box position="absolute" height="100vh" width="100vw">
+          <Box position="absolute" height="100%" width="100vw">
             <LoadingOverlay active spinner text="Waking up server." />
           </Box>
         )}
