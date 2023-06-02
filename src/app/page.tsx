@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
+import LoadingOverlay from "react-loading-overlay";
 
 import Canvas from "@/components/canvas/canvas";
 import { Box, Flex } from "@/components/chakra";
 import ControlBox from "@/components/ControlBox";
 import InputBox from "@/components/InputBox";
 import { DEFAULT_MAN_SCALE, SCALE_ADJUSTER } from "@/constants";
+import { useEntryCount } from "@/services/entries";
+
+// Fix warning on console for this lib
+LoadingOverlay.propTypes = undefined;
 
 export default function Home() {
   const [money, setMoney] = useState(0);
@@ -14,9 +19,17 @@ export default function Home() {
   const [manScale, setManScale] = useState(DEFAULT_MAN_SCALE);
   const [entryId, setEntryId] = useState(0);
 
+  const { isLoading } = useEntryCount();
+
   return (
     <main>
-      <Flex>
+      <Flex position="relative">
+        {isLoading && (
+          <Box position="absolute" height="100vh" width="100vw">
+            <LoadingOverlay active spinner text="Waking up server." />
+          </Box>
+        )}
+
         <Box id="canvas-container" height="100vh" width="75%">
           <Canvas
             money={money}
